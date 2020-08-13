@@ -1,0 +1,24 @@
+.data
+    var: .word 5
+.text
+    lw x5,var
+    jal x1,SUM
+    addi x3,x0,1
+    beq x0,x0,quit
+    
+SUM:
+	addi sp,sp,-8
+    sw x1,4(sp)
+    sw x5,0(sp)
+    addi x6,x0,0
+    bge x6,x5,return
+    addi x5,x5,-1
+    jal x1,SUM
+    return:
+    addi x6,x5,0
+    lw x5,0(sp)
+    add x5,x5,x6
+    lw x1,4(sp)
+    addi sp,sp,8
+    jalr x0,0(x1)
+quit:
